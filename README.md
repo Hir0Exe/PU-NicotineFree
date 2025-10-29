@@ -1,6 +1,19 @@
 # 🚭 NicotineFree - Tu Compañero para Dejar de Fumar
 
-**NicotineFree** es una aplicación móvil desarrollada en Flutter que ayuda a las personas a dejar de fumar mediante gamificación, seguimiento de progreso y recompensas motivadoras.
+<div align="center">
+
+![Flutter](https://img.shields.io/badge/Flutter-3.9.2+-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-3.9.2+-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+**Una aplicación móvil desarrollada en Flutter que ayuda a las personas a dejar de fumar mediante gamificación, seguimiento de progreso y recompensas motivadoras.**
+
+[Instalación](#-instalación) • [Características](#-características-principales) • [Documentación](SETUP.md) • [Contribuir](CONTRIBUTING.md)
+
+</div>
+
+---
 
 ## 📱 Características Principales
 
@@ -39,6 +52,44 @@
 - ✅ **Mensajes del Día:** Frases motivacionales diarias
 - ✅ **Alertas de Logros:** Notificaciones cuando alcanzas hitos
 - ✅ **Recordatorios:** Mantente motivado siempre
+
+---
+
+## 📸 Capturas de Pantalla
+
+<div align="center">
+
+| Login | Home | Retos | Recompensas |
+|:-----:|:----:|:-----:|:-----------:|
+| 🔐 | 🏠 | 🏆 | 🎁 |
+
+*Screenshots próximamente*
+
+</div>
+
+---
+
+## 🚀 Inicio Rápido
+
+### ⚡ Instalación Rápida
+
+   ```bash
+# 1. Clonar repositorio
+git clone https://github.com/Hir0Exe/PU-NicotineFree.git
+cd PU-NicotineFree
+
+# 2. Instalar dependencias
+flutter pub get
+
+# 3. Configurar Firebase (Ver SETUP.md para detalles)
+flutterfire configure
+
+# 4. Ejecutar
+   flutter run
+   ```
+
+> **⚠️ Importante:** Necesitas configurar Firebase antes de ejecutar.  
+> Ver [SETUP.md](SETUP.md) para instrucciones detalladas.
 
 ---
 
@@ -89,14 +140,52 @@
 
 ### Paso 4: Configurar FlutterFire
 
+#### 4.1. Instalar Firebase CLI y FlutterFire CLI
+
 ```bash
+# Instalar Firebase CLI (si no lo tienes)
+npm install -g firebase-tools
+
+# Login en Firebase
+firebase login
+
+# Instalar FlutterFire CLI
+dart pub global activate flutterfire_cli
+```
+
+#### 4.2. Agregar FlutterFire al PATH (Windows)
+
+**Opción A - Temporal (solo sesión actual):**
+```powershell
+$env:Path += ";$env:LOCALAPPDATA\Pub\Cache\bin"
+```
+
+**Opción B - Permanente (recomendado):**
+1. Win + X → Sistema → Configuración avanzada del sistema
+2. Variables de entorno → Path (Variables del sistema)
+3. Nuevo → Agregar: `C:\Users\TU_USUARIO\AppData\Local\Pub\Cache\bin`
+4. Reiniciar terminal
+
+**Opción C - Usar ruta completa:**
+```powershell
+C:\Users\TU_USUARIO\AppData\Local\Pub\Cache\bin\flutterfire.bat configure
+```
+
+#### 4.3. Ejecutar FlutterFire Configure
+
+   ```bash
 # En el directorio del proyecto
 flutterfire configure
 ```
 
-Esto generará automáticamente:
-- `lib/firebase_options.dart`
-- `android/app/google-services.json`
+**Esto te preguntará:**
+- Seleccionar proyecto Firebase (o crear uno nuevo)
+- Plataformas: Marca `android`
+- Application ID: Confirma `com.hir0exe.nicotine_free`
+
+**Se generará automáticamente:**
+- ✅ `lib/firebase_options.dart`
+- ✅ `android/app/google-services.json`
 
 ---
 
@@ -111,9 +200,9 @@ cd PU-NicotineFree
 
 ### 2. Instalar Dependencias
 
-```bash
-flutter pub get
-```
+   ```bash
+   flutter pub get
+   ```
 
 ### 3. Configurar Firebase
 
@@ -121,7 +210,7 @@ Sigue los pasos de la sección "Configuración de Firebase" arriba.
 
 ### 4. Ejecutar la Aplicación
 
-```bash
+   ```bash
 flutter run
 ```
 
@@ -131,121 +220,186 @@ flutter run
 
 ```
 lib/
-├── main.dart                 # Punto de entrada
-├── firebase_options.dart     # Configuración Firebase
+├── main.dart                    # Punto de entrada
+├── firebase_options.dart        # Configuración Firebase (generado)
 │
-├── models/                   # Modelos de datos
-│   ├── user_model.dart
-│   ├── progress_model.dart
-│   ├── challenge_model.dart
-│   └── reward_model.dart
+├── models/                      # Modelos de datos
+│   └── user_model.dart
 │
-├── services/                 # Servicios y lógica de negocio
-│   ├── auth_service.dart
-│   ├── progress_service.dart
-│   └── rewards_service.dart
+├── services/                    # Servicios y lógica de negocio
+│   └── auth_service.dart
 │
-├── providers/                # Gestión de estado
+├── providers/                   # Gestión de estado (Provider)
 │   └── auth_provider.dart
 │
-└── screens/                  # Pantallas de la app
-    ├── auth/
-    ├── home/
-    ├── challenges/
-    ├── rewards/
-    └── notifications/
+└── screens/                     # Pantallas de la app
+    ├── auth/                    # Autenticación
+    │   ├── login_screen.dart
+    │   └── register_screen.dart
+    ├── home/                    # Pantalla principal
+    │   └── home_screen.dart
+    ├── challenges/              # Retos
+    │   └── challenges_screen.dart
+    ├── rewards/                 # Recompensas
+    │   └── rewards_screen.dart
+    ├── notifications/           # Alertas
+    │   └── notifications_screen.dart
+    └── main_screen.dart         # Navegación principal
 ```
 
 ---
 
-## 🎯 Funcionalidades Planificadas
+## 🎯 Roadmap
 
-### Versión 1.0 (MVP)
-- [x] Sistema de autenticación
-- [ ] Seguimiento de días sin fumar
-- [ ] Cálculo de dinero ahorrado
-- [ ] Seguimiento de mejoras en salud
-- [ ] Sistema básico de puntos
+### ✅ Versión 0.1.0 (Actual - MVP)
+- [x] Sistema de autenticación (Email/Password)
+- [x] Pantalla de inicio con estadísticas
+- [x] Pantalla de retos con ranking
+- [x] Pantalla de recompensas e insignias
+- [x] Pantalla de alertas/notificaciones
+- [x] Bottom Navigation Bar
+- [x] UI completa con gradientes
 
-### Versión 2.0
-- [ ] Sistema de retos completo
-- [ ] Ranking y competencia
-- [ ] Premios canjeables
+### 🔜 Versión 0.2.0 (Próxima)
+- [ ] Persistencia de datos en Firestore
+- [ ] Configuración de fecha de abandono
+- [ ] Configuración de cigarrillos/día y precio
+- [ ] Sistema de retos funcional
+- [ ] Sistema de puntos real
+- [ ] Canje de premios
+
+### 🔮 Versión 1.0.0 (Futuro)
 - [ ] Notificaciones push
-- [ ] Mensajes motivacionales
+- [ ] Ranking global
+- [ ] Gráficos de progreso
+- [ ] Recuperación de contraseña
+- [ ] Edición de perfil
+- [ ] Compartir logros
 
-### Versión 3.0
-- [ ] Chat con especialistas
-- [ ] Comunidad de apoyo
-- [ ] Personalización de metas
-- [ ] Análisis avanzado de progreso
-
----
-
-## 🛠️ Tecnologías Utilizadas
-
-- **Flutter 3.9.2+** - Framework
-- **Dart 3.9.2+** - Lenguaje
-- **Firebase Authentication** - Autenticación
-- **Cloud Firestore** - Base de datos
-- **Firebase Cloud Messaging** - Notificaciones
-- **Provider** - Gestión de estado
+Ver [CHANGELOG.md](CHANGELOG.md) para historial completo.
 
 ---
 
-## 📝 Configuración del Package Name
+## 🛠️ Tecnologías
 
-**Android:** `com.hir0exe.nicotine_free`
+| Tecnología | Versión | Uso |
+|------------|---------|-----|
+| Flutter | 3.9.2+ | Framework UI |
+| Dart | 3.9.2+ | Lenguaje |
+| Firebase Authentication | Latest | Autenticación de usuarios |
+| Cloud Firestore | Latest | Base de datos NoSQL |
+| Provider | ^6.1.2 | Gestión de estado |
+| Image Picker | ^1.1.2 | Selección de imágenes |
 
-Asegúrate de que coincida en:
-- `android/app/build.gradle.kts`
-- `android/app/google-services.json`
-- Estructura de carpetas en `android/app/src/main/kotlin/`
+---
+
+## 📚 Documentación
+
+| Documento | Descripción |
+|-----------|-------------|
+| [README.md](README.md) | Información general del proyecto |
+| [SETUP.md](SETUP.md) | Guía completa de instalación paso a paso |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Guía para contribuir al proyecto |
+| [CHANGELOG.md](CHANGELOG.md) | Historial de cambios y versiones |
 
 ---
 
 ## 🤝 Contribuir
 
-Este es un proyecto universitario. Las contribuciones son bienvenidas:
+¡Las contribuciones son bienvenidas! Este es un proyecto universitario abierto a mejoras.
 
-1. Fork el repositorio
-2. Crea tu rama (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -m 'Agrega nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
+**Pasos para contribuir:**
+
+1. **Fork** el repositorio
+2. **Crea** tu rama de feature (`git checkout -b feature/AmazingFeature`)
+3. **Commit** tus cambios (`git commit -m 'feat: add AmazingFeature'`)
+4. **Push** a la rama (`git push origin feature/AmazingFeature`)
+5. **Abre** un Pull Request
+
+Ver [CONTRIBUTING.md](CONTRIBUTING.md) para más detalles.
+
+---
+
+## 🐛 Reportar Bugs
+
+¿Encontraste un bug? [Abre un issue](https://github.com/Hir0Exe/PU-NicotineFree/issues/new) con:
+
+- 📝 Descripción clara del problema
+- 🔄 Pasos para reproducir
+- 📱 Información del dispositivo
+- 📷 Screenshots (opcional)
+
+---
+
+## 💡 Solicitar Features
+
+¿Tienes una idea? [Compártela aquí](https://github.com/Hir0Exe/PU-NicotineFree/issues/new) 
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT.
+Este proyecto está bajo la **Licencia MIT**. Ver [LICENSE](LICENSE) para más detalles.
+
+```
+MIT License - Copyright (c) 2025 Hir0Exe
+```
 
 ---
 
 ## 👨‍💻 Autor
 
+<div align="center">
+
 **Desarrollado como proyecto universitario**
 
-- GitHub: [@Hir0Exe](https://github.com/Hir0Exe)
-- Proyecto: [PU-NicotineFree](https://github.com/Hir0Exe/PU-NicotineFree)
+[![GitHub](https://img.shields.io/badge/GitHub-Hir0Exe-181717?style=for-the-badge&logo=github)](https://github.com/Hir0Exe)  
+[![Proyecto](https://img.shields.io/badge/Proyecto-PU--NicotineFree-blue?style=for-the-badge)](https://github.com/Hir0Exe/PU-NicotineFree)
+
+</div>
 
 ---
 
-## 🚀 ¡Comienza Ahora!
+## 🌟 Soporte
+
+Si este proyecto te ayuda, considera darle una ⭐ en GitHub!
+
+---
+
+## 📞 Contacto
+
+- **Issues:** [GitHub Issues](https://github.com/Hir0Exe/PU-NicotineFree/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/Hir0Exe/PU-NicotineFree/discussions)
+
+---
+
+## 🙏 Agradecimientos
+
+- Flutter Team por el increíble framework
+- Firebase por los servicios backend
+- Comunidad Open Source por las librerías utilizadas
+- Todos los que contribuyen a mejorar este proyecto
+
+---
+
+<div align="center">
+
+## 🚀 ¡Comienza Tu Viaje Libre de Nicotina Hoy!
 
 ```bash
-# 1. Clona el proyecto
 git clone https://github.com/Hir0Exe/PU-NicotineFree.git
 cd PU-NicotineFree
-
-# 2. Instala dependencias
 flutter pub get
-
-# 3. Configura Firebase
 flutterfire configure
-
-# 4. Ejecuta
 flutter run
 ```
 
-**¡Tu camino hacia una vida libre de nicotina comienza hoy! 🚭✨**
+**Tu camino hacia una vida libre de nicotina comienza aquí 🚭✨**
+
+---
+
+Made with ❤️ and Flutter
+
+[⬆️ Volver arriba](#-nicotinefree---tu-compañero-para-dejar-de-fumar)
+
+</div>

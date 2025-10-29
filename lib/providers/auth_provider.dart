@@ -1,104 +1,117 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../services/auth_service.dart';
 import '../models/user_model.dart';
+import '../services/auth_service.dart';
 
-class AuthProvider extends ChangeNotifier {
+class AuthProvider with ChangeNotifier {
   final AuthService _authService = AuthService();
-  User? _user;
-  UserType? _userType;
+  UserModel? _currentUser;
   bool _isLoading = false;
 
-  User? get user => _user;
-  UserType? get userType => _userType;
+  UserModel? get currentUser => _currentUser;
   bool get isLoading => _isLoading;
-  bool get isAuthenticated => _user != null;
+  bool get isAuthenticated => _currentUser != null;
 
-  AuthProvider() {
+  // Escuchar cambios en el estado de autenticación
+  void initAuthListener() {
     _authService.authStateChanges.listen((User? user) async {
-      _user = user;
       if (user != null) {
-        _userType = await _authService.getUserType(user.uid);
+        _currentUser = await _authService.getUserData(user.uid);
       } else {
-        _userType = null;
+        _currentUser = null;
       }
       notifyListeners();
     });
   }
 
+  // Registro con email y contraseña
   Future<bool> signUpWithEmail({
     required String email,
     required String password,
-    required UserType userType,
+    required String name,
   }) async {
-    try {
-      _isLoading = true;
-      notifyListeners();
+    _isLoading = true;
+    notifyListeners();
 
-      await _authService.signUpWithEmail(
+    try {
+      _currentUser = await _authService.signUpWithEmail(
         email: email,
         password: password,
-        userType: userType,
+        name: name,
       );
 
       _isLoading = false;
       notifyListeners();
-      return true;
+      return _currentUser != null;
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      print('Error en registro: $e');
       return false;
     }
   }
 
+  // Login con email y contraseña
   Future<bool> signInWithEmail({
     required String email,
     required String password,
   }) async {
-    try {
-      _isLoading = true;
-      notifyListeners();
+    _isLoading = true;
+    notifyListeners();
 
-      await _authService.signInWithEmail(
+    try {
+      _currentUser = await _authService.signInWithEmail(
         email: email,
         password: password,
       );
 
       _isLoading = false;
       notifyListeners();
-      return true;
+      return _currentUser != null;
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      print('Error en inicio de sesión: $e');
       return false;
     }
   }
 
-  Future<bool> signInWithGoogle({UserType? userType}) async {
+  // Login con Google
+  Future<bool> signInWithGoogle() async {
+    _isLoading = true;
+    notifyListeners();
+
     try {
-      _isLoading = true;
-      notifyListeners();
-
-      await _authService.signInWithGoogle(userType: userType);
+      _currentUser = await _authService.signInWithGoogle();
 
       _isLoading = false;
       notifyListeners();
-      return true;
+      return _currentUser != null;
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      print('Error en inicio de sesión con Google: $e');
       return false;
     }
   }
 
+  // Cerrar sesión
   Future<void> signOut() async {
     await _authService.signOut();
-    _user = null;
-    _userType = null;
+    _currentUser = null;
     notifyListeners();
   }
-}
 
+  // Actualizar datos del usuario
+  Future<void> updateUser(UserModel user) async {
+    await _authService.updateUserData(user);
+    _currentUser = user;
+    notifyListeners();
+  }
+
+  // Refrescar datos del usuario
+  Future<void> refreshUser() async {
+    if (_authService.currentUser != null) {
+      _currentUser =
+          await _authService.getUserData(_authService.currentUser!.uid);
+      notifyListeners();
+    }
+  }
+}

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.bigshot.bigshot_app"
+    namespace = "com.hir0exe.nicotine_free"
     compileSdk = flutter.compileSdkVersion
     // ndkVersion = flutter.ndkVersion  // Deshabilitado - no necesario
 
