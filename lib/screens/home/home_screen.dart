@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../models/user_model.dart';
+import '../../widgets/avatar_selector.dart';
+import '../../widgets/weather_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -35,26 +37,55 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '¡Hola, ${user?.name ?? "Usuario"}!',
-                                style: const TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                          // Avatar del usuario
+                          UserAvatar(
+                            avatarType: user?.avatarType ?? AvatarType.young,
+                            size: 64,
+                            onTap: () async {
+                              // Mostrar selector de avatar
+                              await showDialog(
+                                context: context,
+                                builder: (context) => AvatarSelector(
+                                  initialAvatar: user?.avatarType ?? AvatarType.young,
+                                  onAvatarSelected: (newAvatar) async {
+                                    if (user != null) {
+                                      final updatedUser = user.copyWith(avatarType: newAvatar);
+                                      await context.read<AuthProvider>().updateUser(updatedUser);
+                                    }
+                                  },
                                 ),
-                              ),
-                              const Text(
-                                'Tu progreso es increíble',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ],
+                              );
+                            },
                           ),
+                          
+                          const SizedBox(width: 12),
+                          
+                          // Nombre y saludo
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '¡Hola, ${user?.name ?? "Usuario"}!',
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const Text(
+                                  'Tu progreso es increíble',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          // Botón de logout
                           IconButton(
                             onPressed: () async {
                               // Confirmar logout
@@ -90,7 +121,11 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 16),
+                      
+                      // Widget del clima
+                      const Center(child: WeatherWidget()),
+                      const SizedBox(height: 24),
 
                       // Días sin fumar
                       Container(

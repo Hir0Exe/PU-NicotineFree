@@ -9,9 +9,20 @@
 
 **Una aplicación móvil desarrollada en Flutter que ayuda a las personas a dejar de fumar mediante gamificación, seguimiento de progreso y recompensas motivadoras.**
 
-[Instalación](#-instalación) • [Características](#-características-principales) • [Documentación](SETUP.md) • [Contribuir](CONTRIBUTING.md)
+[Inicio Rápido](QUICK_START.md) • [Instalación Completa](SETUP.md) • [Características](#-características-principales) • [Contribuir](CONTRIBUTING.md)
 
 </div>
+
+---
+
+## 📚 Documentación
+
+| Documento | Descripción | Tiempo Estimado |
+|-----------|-------------|-----------------|
+| **[⚡ QUICK_START.md](QUICK_START.md)** | Guía rápida para usuarios con experiencia | 5 minutos |
+| **[📖 SETUP.md](SETUP.md)** | Guía completa paso a paso desde cero | 30-60 minutos |
+| **[🌤️ WEATHER_API_SETUP.md](WEATHER_API_SETUP.md)** | Configuración de la API del clima | 5 minutos |
+| **[🤝 CONTRIBUTING.md](CONTRIBUTING.md)** | Guía para contribuir al proyecto | 10 minutos |
 
 ---
 
@@ -29,6 +40,17 @@
   - Sentido del olfato recuperado
   - Riesgo cardíaco reducido
 - ✅ **Indicadores Visuales:** Ve tu progreso de salud en tiempo real
+
+### 👤 Avatares Personalizables
+- ✅ **3 Opciones de Avatar:** Anciano 👴, Joven 👦, Señor 👨
+- ✅ **Cambio en Tiempo Real:** Actualización visual instantánea
+- ✅ **Sincronización Automática:** Se guarda en Firebase
+
+### 🌤️ Clima en Tiempo Real
+- ✅ **Temperatura Actual:** Basada en tu ubicación GPS
+- ✅ **Estado del Clima:** 12 condiciones diferentes en español
+- ✅ **Sin Límites:** API gratuita e ilimitada (Open-Meteo)
+- ✅ **Emojis Visuales:** Representación gráfica del clima
 
 ### 🏆 Sistema de Retos y Recompensas
 - ✅ **Retos Activos:** Completa desafíos semanales y mensuales

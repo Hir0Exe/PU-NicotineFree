@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: 'TU_MESSAGING_SENDER_ID',
     projectId: 'tu-project-id',
     storageBucket: 'tu-project-id.appspot.com',
-    iosBundleId: 'com.hir0exe.flutterBigShotDev',
+    iosBundleId: 'com.hir0exe.nicotine_free',
   );
 }
 

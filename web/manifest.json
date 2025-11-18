@@ -1,11 +1,11 @@
 {
-    "name": "bigshot_app",
-    "short_name": "bigshot_app",
+    "name": "nicotine_free",
+    "short_name": "nicotine_free",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "App para ayudar a las personas a dejar de fumar con gamificación y motivación.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

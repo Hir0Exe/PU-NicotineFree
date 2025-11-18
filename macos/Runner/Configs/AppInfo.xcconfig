@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = bigshot_app
+PRODUCT_NAME = nicotine_free
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.bigshot.bigshotApp
+PRODUCT_BUNDLE_IDENTIFIER = com.hir0exe.nicotine_free
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2025 com.bigshot. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2025 com.hir0exe. All rights reserved.

@@ -18,7 +18,7 @@ class UserTypeSelectionScreen extends StatelessWidget {
               children: [
                 // Logo
                 const Text(
-                  'BIGSHOT',
+                  'NicotineFree',
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,

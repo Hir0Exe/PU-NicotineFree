@@ -1,5 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+enum AvatarType {
+  elderly, // Anciano
+  young, // Joven
+  adult, // Señor
+}
+
 class UserModel {
   final String uid;
   final String email;
@@ -9,6 +15,7 @@ class UserModel {
   final int? cigarettesPerDay; // Cigarrillos por día antes de dejar
   final double? pricePerPack; // Precio por paquete
   final int? cigarettesPerPack; // Cigarrillos por paquete (típicamente 20)
+  final AvatarType avatarType; // Tipo de avatar del usuario
 
   UserModel({
     required this.uid,
@@ -19,6 +26,7 @@ class UserModel {
     this.cigarettesPerDay,
     this.pricePerPack,
     this.cigarettesPerPack = 20,
+    this.avatarType = AvatarType.young, // Avatar por defecto
   });
 
   // Convertir desde Firestore
@@ -35,7 +43,22 @@ class UserModel {
       cigarettesPerDay: data['cigarettesPerDay'],
       pricePerPack: data['pricePerPack']?.toDouble(),
       cigarettesPerPack: data['cigarettesPerPack'] ?? 20,
+      avatarType: _avatarTypeFromString(data['avatarType'] ?? 'young'),
     );
+  }
+
+  // Helper para convertir string a AvatarType
+  static AvatarType _avatarTypeFromString(String type) {
+    switch (type) {
+      case 'elderly':
+        return AvatarType.elderly;
+      case 'young':
+        return AvatarType.young;
+      case 'adult':
+        return AvatarType.adult;
+      default:
+        return AvatarType.young;
+    }
   }
 
   // Convertir a Firestore
@@ -49,6 +72,7 @@ class UserModel {
       'cigarettesPerDay': cigarettesPerDay,
       'pricePerPack': pricePerPack,
       'cigarettesPerPack': cigarettesPerPack,
+      'avatarType': avatarType.toString().split('.').last,
     };
   }
 
@@ -62,6 +86,7 @@ class UserModel {
     int? cigarettesPerDay,
     double? pricePerPack,
     int? cigarettesPerPack,
+    AvatarType? avatarType,
   }) {
     return UserModel(
       uid: uid ?? this.uid,
@@ -72,6 +97,7 @@ class UserModel {
       cigarettesPerDay: cigarettesPerDay ?? this.cigarettesPerDay,
       pricePerPack: pricePerPack ?? this.pricePerPack,
       cigarettesPerPack: cigarettesPerPack ?? this.cigarettesPerPack,
+      avatarType: avatarType ?? this.avatarType,
     );
   }
 
